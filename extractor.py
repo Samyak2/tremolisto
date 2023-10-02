@@ -1,29 +1,10 @@
 import re
 import sys
-
-from dataclasses import dataclass, field
-from typing import Optional
 from pprint import pprint
 
-from yt import get_audio_file
-
-
-@dataclass
-class MusicPart:
-    start: str
-    end: str
-    typ: str
-    extra: str
-
-
-@dataclass
-class Music:
-    title: str
-    artist: str
-
-    url: Optional[str] = None
-    parts: list[MusicPart] = field(default_factory=list)
-
+import audio
+import yt
+from models import Music, MusicPart
 
 _LINK_RE = re.compile(r"^link:\s+", re.IGNORECASE)
 _PART_RE = re.compile(r"(.*):\s*(\d+:\d+)\s*-\s*(\d+:\d+)\s*(\(.*\))*")
@@ -61,18 +42,27 @@ def extract_data(file_contents: str) -> list[Music]:
             start = match.group(2)
             end = match.group(3)
             extra = match.group(4)
-            music_part = MusicPart(start=start, end=end, typ=typ, extra=extra)
+            music_part = MusicPart(start=start, end=end, typ=typ, extra=extra or "")
             current_section.parts.append(music_part)
 
     return sections
 
 
-def audio(musics: list[Music]):
+def process_audio(musics: list[Music]):
     for music in musics:
         if music.url is None:
             raise Exception(f"Could not find URL for: {music}")
-        print(music)
-        get_audio_file(music.url)
+        out = yt.get_audio_file(yt.AudioInput(url=music.url))
+
+        for part in music.parts:
+            if not part.has_time():
+                continue
+
+            cut_audio_out = audio.cut_audio(
+                audio.CutAudioInput(filename=out.filename, part=part)
+            )
+
+            print(cut_audio_out)
 
 
 def main():
@@ -83,7 +73,7 @@ def main():
     sections = extract_data(contents)
     pprint(sections)
 
-    audio(sections)
+    process_audio(sections)
 
 
 if __name__ == "__main__":

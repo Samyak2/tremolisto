@@ -1,43 +1,24 @@
-from pathlib import Path
-from typing import Callable, Optional, TypeVar
+from typing import Any, Optional, cast
+
+from pydantic import BaseModel, TypeAdapter
 from yt_dlp import YoutubeDL
-import os
-import json
 
-_MODULE_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
-_CACHE_FILE = _MODULE_DIR / ".music_cache.json"
-_CACHE_FILE_BKP = _MODULE_DIR / ".music_cache.backup.json"
+from cache import cached
 
-RetType = TypeVar("RetType")
+audio_file_input = TypeAdapter(str)
 
 
-def cached(func: Callable[..., RetType]) -> Callable[..., RetType]:
-    def wrapper(url: str) -> RetType:
-        _CACHE_FILE.touch()
-        with open(_CACHE_FILE) as f:
-            data = f.read()
-        cache = json.loads(data or "{}")
-        if url in cache:
-            return cache[url]
-        else:
-            ret = func(url)
-            cache[url] = ret
+class AudioInput(BaseModel):
+    url: str
 
-            _CACHE_FILE_BKP.touch()
-            with open(_CACHE_FILE) as f_orig, open(_CACHE_FILE_BKP, "a") as f_bkp:
-                f_bkp.write("\n")
-                f_bkp.write(f_orig.read())
 
-            with open(_CACHE_FILE, "w") as f:
-                json.dump(cache, f)
-
-            return ret
-
-    return wrapper
+class DownloadedAudio(BaseModel):
+    filename: str
+    info: dict[str, Any]
 
 
 @cached
-def get_audio_file(url: str):
+def get_audio_file(input: AudioInput) -> DownloadedAudio:
     final_filename: Optional[str] = None
 
     def _yt_dlp_progress_hook(d: dict):
@@ -66,7 +47,10 @@ def get_audio_file(url: str):
             "progress_hooks": [_yt_dlp_progress_hook],
         }
     ) as ydl:
-        info = ydl.extract_info(url)
+        info = ydl.extract_info(input.url)
         info = ydl.sanitize_info(info)
 
-    return final_filename, info
+    if final_filename is None:
+        raise Exception("progress hook did not run!")
+
+    return DownloadedAudio(filename=final_filename, info=cast(dict[str, Any], info))

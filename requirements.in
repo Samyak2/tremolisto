@@ -1,4 +1,7 @@
+isort
 black
 ruff
 pip-tools
 yt-dlp==2023.9.24
+pydub
+pydantic~=2.4.1
