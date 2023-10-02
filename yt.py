@@ -19,14 +19,6 @@ class DownloadedAudio(BaseModel):
 
 @cached
 def get_audio_file(input: AudioInput) -> DownloadedAudio:
-    final_filename: Optional[str] = None
-
-    def _yt_dlp_progress_hook(d: dict):
-        nonlocal final_filename
-
-        if d["status"] == "finished":
-            final_filename = d.get("filename")
-
     with YoutubeDL(
         {
             "check_formats": "selected",
@@ -44,13 +36,16 @@ def get_audio_file(input: AudioInput) -> DownloadedAudio:
                 # {"key": "FFmpegConcat", "only_multi_video": True, "when": "playlist"},
             ],
             # "retries": 10,
-            "progress_hooks": [_yt_dlp_progress_hook],
         }
     ) as ydl:
         info = ydl.extract_info(input.url)
         info = ydl.sanitize_info(info)
 
+    info = cast(dict[str, Any], info)
+
+    final_filename = info["requested_downloads"][0]["filepath"]
+
     if final_filename is None:
         raise Exception("progress hook did not run!")
 
-    return DownloadedAudio(filename=final_filename, info=cast(dict[str, Any], info))
+    return DownloadedAudio(filename=final_filename, info=info)

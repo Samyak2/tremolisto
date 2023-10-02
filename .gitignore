@@ -11,3 +11,4 @@
 # local cache
 .music_cache.json
 .music_cache.*.json
+.cache.*.json
