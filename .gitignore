@@ -1,3 +1,12 @@
 # direnv
 .envrc
 .direnv
+# audio files
+*.opus
+*.part
+*.ytdl
+# python
+**__pycache__**
+# local cache
+.music_cache.json
+.music_cache.backup.json

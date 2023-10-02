@@ -5,6 +5,8 @@ from dataclasses import dataclass, field
 from typing import Optional
 from pprint import pprint
 
+from yt import get_audio_file
+
 
 @dataclass
 class MusicPart:
@@ -23,6 +25,7 @@ class Music:
     parts: list[MusicPart] = field(default_factory=list)
 
 
+_LINK_RE = re.compile(r"^link:\s+", re.IGNORECASE)
 _PART_RE = re.compile(r"(.*):\s*(\d+:\d+)\s*-\s*(\d+:\d+)\s*(\(.*\))*")
 
 
@@ -39,8 +42,8 @@ def extract_data(file_contents: str) -> list[Music]:
             title, artist = heading.rsplit("-", maxsplit=1)
             current_section = Music(title=title.strip(), artist=artist.strip())
             sections.append(current_section)
-        elif (url := line.lower()).startswith("link:"):
-            url = url.lstrip("link:").lstrip()
+        elif line.lower().startswith("link:"):
+            url = _LINK_RE.sub("", line)
             current_section.url = url
         elif line.startswith("-"):
             part = line.lstrip("-").lstrip()
@@ -64,6 +67,14 @@ def extract_data(file_contents: str) -> list[Music]:
     return sections
 
 
+def audio(musics: list[Music]):
+    for music in musics:
+        if music.url is None:
+            raise Exception(f"Could not find URL for: {music}")
+        print(music)
+        get_audio_file(music.url)
+
+
 def main():
     filename = sys.argv[1]
     with open(filename) as f:
@@ -71,6 +82,8 @@ def main():
 
     sections = extract_data(contents)
     pprint(sections)
+
+    audio(sections)
 
 
 if __name__ == "__main__":
