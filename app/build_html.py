@@ -48,12 +48,13 @@ def main():
 
     build_dir = Path("build")
 
+    shutil.rmtree(build_dir)
     os.makedirs(build_dir, exist_ok=True)
 
     with open(build_dir / "index.html", "w") as f:
         f.write(rendered)
 
-    shutil.copytree(Path("static"), build_dir, dirs_exist_ok=True)
+    shutil.copytree(Path("static"), build_dir / "static", dirs_exist_ok=True)
 
     print(f"Successfully built in {build_dir}")
 

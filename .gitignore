@@ -17,3 +17,5 @@
 .env
 # build
 build
+# os files
+.DS_Store
