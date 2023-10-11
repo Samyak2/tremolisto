@@ -10,3 +10,6 @@ sync:
 
 serve:
     uvicorn app.main:app --reload --port 3009
+
+build:
+    python -m app.build_html
