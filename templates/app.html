@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Guitar Music</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    {% for music in musics %}
+    <div>
+        <h2>{{ music.title }} - {{ music.artist }}</h2>
+        {% for part in music.parts %}
+        <div style="display: flex; align-items: center;">
+            <span style="margin-right: 1rem;">{{ part.typ }} {{ part.extra }}</span>
+            <audio controls src="{{ url_for('static', path=part.filename) }}"></audio>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</body>
+
+</html>

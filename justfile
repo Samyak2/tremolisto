@@ -7,3 +7,6 @@ compile:
 
 sync:
     pip-sync
+
+serve:
+    uvicorn app.main:app --reload --port 3009

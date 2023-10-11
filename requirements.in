@@ -5,3 +5,6 @@ pip-tools
 yt-dlp==2023.9.24
 pydub
 pydantic~=2.4.1
+fastapi[all]~=0.103.2
+python-dotenv~=1.0.0
+Jinja2~=3.1.2

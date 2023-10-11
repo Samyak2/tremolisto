@@ -1,5 +1,5 @@
 from dataclasses import field
-from typing import Optional
+from typing import Generic, Optional, TypeVar
 
 from pydantic import BaseModel
 
@@ -29,9 +29,20 @@ class MusicPart(BaseModel):
         return _time_to_millis(self.end)
 
 
-class Music(BaseModel):
+class MusicPartWithFile(MusicPart):
+    filename: str
+
+    @classmethod
+    def from_music_part(cls, music_part: MusicPart, filename: str):
+        return MusicPartWithFile(**music_part.model_dump(), filename=filename)
+
+
+M = TypeVar("M", bound=MusicPart)
+
+
+class Music(BaseModel, Generic[M]):
     title: str
     artist: str
 
     url: Optional[str] = None
-    parts: list[MusicPart] = field(default_factory=list)
+    parts: list[M] = field(default_factory=list)

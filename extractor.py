@@ -1,16 +1,17 @@
 import re
 import sys
 from pprint import pprint
+from typing import Any, cast
 
 import audio
 import yt
-from models import Music, MusicPart
+from models import Music, MusicPart, MusicPartWithFile
 
 _LINK_RE = re.compile(r"^link:\s+", re.IGNORECASE)
 _PART_RE = re.compile(r"(.*):\s*(\d+:\d+)\s*-\s*(\d+:\d+)\s*(\(.*\))*")
 
 
-def extract_data(file_contents: str) -> list[Music]:
+def extract_data(file_contents: str) -> list[Music[MusicPart]]:
     sections: list[Music] = []
     current_section = Music(title="", artist="")
 
@@ -48,11 +49,15 @@ def extract_data(file_contents: str) -> list[Music]:
     return sections
 
 
-def process_audio(musics: list[Music]):
+def process_audio(musics: list[Music[MusicPart]]) -> list[Music[MusicPartWithFile]]:
+    rets: list[Music[MusicPartWithFile]] = []
+
     for music in musics:
         if music.url is None:
             raise Exception(f"Could not find URL for: {music}")
         out = yt.get_audio_file(yt.AudioInput(url=music.url))
+
+        new_parts: list[MusicPartWithFile] = []
 
         for part in music.parts:
             if not part.has_time():
@@ -62,7 +67,15 @@ def process_audio(musics: list[Music]):
                 audio.CutAudioInput(filename=out.filename, part=part)
             )
 
+            new_parts.append(
+                MusicPartWithFile.from_music_part(part, cut_audio_out.filename)
+            )
+
             print(cut_audio_out)
+
+        rets.append(Music(**(music.model_dump() | {"parts": cast(Any, new_parts)})))
+
+    return rets
 
 
 def main():
@@ -73,7 +86,8 @@ def main():
     sections = extract_data(contents)
     pprint(sections)
 
-    process_audio(sections)
+    musics = process_audio(sections)
+    pprint(musics)
 
 
 if __name__ == "__main__":

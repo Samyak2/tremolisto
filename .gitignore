@@ -6,9 +6,12 @@
 *.mp3
 *.part
 *.ytdl
+*.webm
 # python
 **__pycache__**
 # local cache
 .music_cache.json
 .music_cache.*.json
 .cache.*.json
+# secrets
+.env
