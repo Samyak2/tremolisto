@@ -13,3 +13,6 @@ serve:
 
 build:
     python -m app.build_html
+
+deploy:
+    netlify deploy --prod
