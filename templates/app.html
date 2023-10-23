@@ -5,7 +5,7 @@
     <title>Guitar Music</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="{{ url_for('static', path='/guitar.png') }}"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='/guitar.png') }}" />
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
 </head>
 
@@ -16,7 +16,7 @@
         {% for part in music.parts %}
         <div style="display: flex; align-items: center;">
             <span style="margin-right: 1rem;">{{ part.typ }} {{ part.extra }}</span>
-            <audio controls src="{{ url_for('static', path=part.filename) }}"></audio>
+            <audio controls preload="none" src="{{ url_for('static', path=part.filename) }}"></audio>
         </div>
         {% endfor %}
     </div>
@@ -24,7 +24,8 @@
 </body>
 
 <div style="font-size: smaller; margin-top: 1rem;">
-<a href="https://www.flaticon.com/free-icons/guitar" title="guitar icons">Guitar icon created by Freepik - Flaticon</a>
+    <a href="https://www.flaticon.com/free-icons/guitar" title="guitar icons">Guitar icon created by Freepik -
+        Flaticon</a>
 </div>
 
 </html>
