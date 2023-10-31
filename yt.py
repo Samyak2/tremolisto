@@ -46,6 +46,6 @@ def get_audio_file(input: AudioInput) -> DownloadedAudio:
     final_filename = info["requested_downloads"][0]["filepath"]
 
     if final_filename is None:
-        raise Exception("progress hook did not run!")
+        raise Exception("could not find final filename")
 
     return DownloadedAudio(filename=final_filename, info=info)

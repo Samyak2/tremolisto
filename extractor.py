@@ -1,7 +1,10 @@
+import contextlib
 import re
 import sys
 from pprint import pprint
 from typing import Any, cast
+
+from tqdm import tqdm
 
 import audio
 import yt
@@ -52,28 +55,31 @@ def extract_data(file_contents: str) -> list[Music[MusicPart]]:
 def process_audio(musics: list[Music[MusicPart]]) -> list[Music[MusicPartWithFile]]:
     rets: list[Music[MusicPartWithFile]] = []
 
-    for music in musics:
-        if music.url is None:
-            raise Exception(f"Could not find URL for: {music}")
-        out = yt.get_audio_file(yt.AudioInput(url=music.url))
+    with contextlib.chdir("outputs"):
+        for music in tqdm(musics, desc="Musics"):
+            if music.url is None:
+                raise Exception(f"Could not find URL for: {music}")
+            out = yt.get_audio_file(yt.AudioInput(url=music.url))
 
-        new_parts: list[MusicPartWithFile] = []
+            # with open("temp.json", "w") as f:
+            #     import json
+            #     print(json.dumps(out.info), file=f)
 
-        for part in music.parts:
-            if not part.has_time():
-                continue
+            new_parts: list[MusicPartWithFile] = []
 
-            cut_audio_out = audio.cut_audio(
-                audio.CutAudioInput(filename=out.filename, part=part)
-            )
+            for part in music.parts:
+                if not part.has_time():
+                    continue
 
-            new_parts.append(
-                MusicPartWithFile.from_music_part(part, cut_audio_out.filename)
-            )
+                cut_audio_out = audio.cut_audio(
+                    audio.CutAudioInput(filename=out.filename, part=part)
+                )
 
-            print(cut_audio_out)
+                new_parts.append(
+                    MusicPartWithFile.from_music_part(part, cut_audio_out.filename)
+                )
 
-        rets.append(Music(**(music.model_dump() | {"parts": cast(Any, new_parts)})))
+            rets.append(Music(**(music.model_dump() | {"parts": cast(Any, new_parts)})))
 
     return rets
 

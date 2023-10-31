@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from tqdm import tqdm
 
 from extractor import extract_data, process_audio
 
@@ -20,12 +21,12 @@ def get_musics():
 
     musics = process_audio(extract_data(contents))
     current_module_path = Path(__file__).resolve().parent.parent
-    for music in musics:
+    for music in tqdm(musics, desc="Copying music"):
         for part in music.parts:
             filepath = Path(part.filename)
             path_in_static = f"musics/{filepath.name}"
             new_path = current_module_path / "static" / path_in_static
-            print(filepath, new_path)
+            # print(filepath, new_path)
             shutil.copy2(filepath, new_path)
             part.filename = path_in_static
 
