@@ -1,0 +1,10 @@
+setup:
+    rustup toolchain install nightly
+    rustup target add wasm32-unknown-unknown
+    cargo install trunk
+
+dev:
+    trunk serve --open
+
+build:
+    trunk build --release -d ../build/
