@@ -3,7 +3,6 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 from tqdm import tqdm
 
 from extractor import extract_data, process_audio
@@ -37,17 +36,6 @@ def get_musics():
 
 def main():
     musics = get_musics()
-
-    # env = Environment(
-    #     loader=FileSystemLoader("templates"), autoescape=select_autoescape()
-    # )
-    # template = env.get_template("app.html")
-
-    # def url_for(dir: str, path: str):
-    #     path = path.lstrip("/")
-    #     return f"/{dir}/{path}"
-
-    # rendered = template.render({"musics": musics, "url_for": url_for})
 
     with open(Path("ui") / "src" / "music.json", "w") as f:
         f.write(music_list_type.dump_json(musics).decode())
