@@ -1,11 +1,13 @@
 import os
 import shutil
+import subprocess
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from tqdm import tqdm
 
 from extractor import extract_data, process_audio
+from models import music_list_type
 
 
 def _get_env(key: str):
@@ -36,28 +38,27 @@ def get_musics():
 def main():
     musics = get_musics()
 
-    env = Environment(
-        loader=FileSystemLoader("templates"), autoescape=select_autoescape()
+    # env = Environment(
+    #     loader=FileSystemLoader("templates"), autoescape=select_autoescape()
+    # )
+    # template = env.get_template("app.html")
+
+    # def url_for(dir: str, path: str):
+    #     path = path.lstrip("/")
+    #     return f"/{dir}/{path}"
+
+    # rendered = template.render({"musics": musics, "url_for": url_for})
+
+    with open(Path("ui") / "src" / "music.json", "w") as f:
+        f.write(music_list_type.dump_json(musics).decode())
+
+    shutil.copytree(
+        Path("static") / "musics", Path("ui") / "static" / "musics", dirs_exist_ok=True
     )
-    template = env.get_template("app.html")
 
-    def url_for(dir: str, path: str):
-        path = path.lstrip("/")
-        return f"/{dir}/{path}"
+    subprocess.run("""cd ui && npm run build""", shell=True)
 
-    rendered = template.render({"musics": musics, "url_for": url_for})
-
-    build_dir = Path("build")
-
-    shutil.rmtree(build_dir)
-    os.makedirs(build_dir, exist_ok=True)
-
-    with open(build_dir / "index.html", "w") as f:
-        f.write(rendered)
-
-    shutil.copytree(Path("static"), build_dir / "static", dirs_exist_ok=True)
-
-    print(f"Successfully built in {build_dir}")
+    print("Successfully built in ui/build")
 
 
 if __name__ == "__main__":

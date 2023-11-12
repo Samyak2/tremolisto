@@ -1,7 +1,7 @@
 from dataclasses import field
 from typing import Generic, Optional, TypeVar
 
-from pydantic import BaseModel
+from pydantic import BaseModel, TypeAdapter
 
 
 def _time_to_millis(time: str) -> int:
@@ -46,3 +46,6 @@ class Music(BaseModel, Generic[M]):
 
     url: Optional[str] = None
     parts: list[M] = field(default_factory=list)
+
+
+music_list_type = TypeAdapter(list[Music[MusicPartWithFile]])
