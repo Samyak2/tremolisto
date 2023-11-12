@@ -7,7 +7,10 @@
 		(a, b) => a.localeCompare(b)
 	);
 
-	let parts: MusicPart[] = allMusics.map((music) => music.parts).flat();
+	function getInitialParts() {
+		return allMusics.map((music) => music.getParts()).flat();
+	}
+	let parts: MusicPart[] = getInitialParts();
 
 	let musics: Music[] = allMusics;
 
@@ -15,18 +18,24 @@
 
 	$: {
 		loading = true;
-		const foundMusics: Map<number, Music> = new Map();
+		let lastMusic: Music | null = null;
+		const foundMusics: Music[] = [];
 		for (const part of parts) {
-			const foundMusic = foundMusics.get(part.music.id);
-			if (foundMusic) {
-				foundMusic.parts.push(part);
+			if (lastMusic !== null && lastMusic.id === part.music.id) {
+				lastMusic.addPart(part);
 			} else {
-				const music = { ...part.music };
-				music.parts = [part];
-				foundMusics.set(part.music.id, music);
+				if (lastMusic !== null) {
+					foundMusics.push(lastMusic);
+				}
+				lastMusic = part.music.copy();
+				lastMusic.setParts([part]);
 			}
 		}
-		musics = Array.from(foundMusics.values());
+		if (lastMusic !== null) {
+			foundMusics.push(lastMusic);
+		}
+		musics = foundMusics;
+		console.log('new musics', musics);
 		loading = false;
 	}
 
@@ -37,12 +46,28 @@
 	) {
 		const artist = e.currentTarget.value;
 		if (artist === 'select-artist') {
-			parts = allMusics.map((music) => music.parts).flat();
+			parts = getInitialParts();
 		} else {
 			parts = allMusics
 				.filter((music) => music.artist === artist)
-				.map((music) => music.parts)
+				.map((music) => music.getParts())
 				.flat();
+		}
+	}
+
+	function sortBy(
+		e: Event & {
+			currentTarget: HTMLSelectElement;
+		}
+	) {
+		const sorting = e.currentTarget.value;
+		if (sorting === 'default') {
+			parts = getInitialParts();
+		} else if (sorting === 'length') {
+			parts = allMusics
+				.map((music) => music.getParts())
+				.flat()
+				.sort((a, b) => b.length() - a.length());
 		}
 	}
 
@@ -53,11 +78,18 @@
 
 <div class="flex flex-row mt-2">
 	<div class="ml-4">
-		<select name="artist" id="artist-dropdown" on:input={filterByArtist}>
+		<select class="p-1" name="artist" id="artist-dropdown" on:input={filterByArtist}>
 			<option value="select-artist">-Select Artist-</option>
 			{#each allArtists as artist}
 				<option value={artist}>{artist}</option>
 			{/each}
+		</select>
+	</div>
+
+	<div class="ml-4">
+		<select class="p-1" name="sorting" id="sorting-dropdown" on:input={sortBy}>
+			<option value="default">No sorting</option>
+			<option value="length">Length</option>
 		</select>
 	</div>
 </div>
@@ -82,24 +114,24 @@
 			<th class="border-black border-y-2">Length</th>
 			<th class="border-black border-y-2">Audio</th>
 		</tr>
-		{#each musics as music (music.id)}
+		{#each musics as music (music.key)}
 			<tr>
-				<td rowspan={music.parts.length + 1} class="border-black border-r-2 text-center"
+				<td rowspan={music.numParts() + 1} class="border-black border-r-2 text-center"
 					><h2 class="py-2 px-4 text-lg">
 						{music.title}
 					</h2></td
 				>
-				<td rowspan={music.parts.length + 1} class="border-black border-r-2 text-center"
+				<td rowspan={music.numParts() + 1} class="border-black border-r-2 text-center"
 					><h2 class="py-2 px-4 text-lg">
 						{music.artist}
 					</h2></td
 				>
 			</tr>
 
-			{#each music.parts as part, index ((music.id, part.id))}
-				<tr class="border-black" class:border-b-2={index === music.parts.length - 1}>
+			{#each music.getParts() as part, index ((music.id, part.id))}
+				<tr class="border-black" class:border-b-2={index === music.numParts() - 1}>
 					<td class="border-black border-b-2 text-center">{part.typ} {part.extra}</td>
-					<td class="border-black border-b-2 text-center">{part.length()}s</td>
+					<td class="border-black border-b-2 text-center">{part.lengthPretty()}</td>
 					<td class="border-black border-b-2"
 						><audio controls preload="none" src="/{part.filename}" /></td
 					>
