@@ -11,10 +11,10 @@
 
 	let musics: Music[] = allMusics;
 
-  let loading = false;
+	let loading = false;
 
 	$: {
-    loading = true;
+		loading = true;
 		const foundMusics: Map<number, Music> = new Map();
 		for (const part of parts) {
 			const foundMusic = foundMusics.get(part.music.id);
@@ -27,7 +27,7 @@
 			}
 		}
 		musics = Array.from(foundMusics.values());
-    loading = false;
+		loading = false;
 	}
 
 	function filterByArtist(
@@ -49,47 +49,64 @@
 	console.log(musics);
 </script>
 
-<h1 class="text-xl font-bold">Guitar Music</h1>
+<h1 class="text-xl font-bold p-2">Guitar Music</h1>
 
-<select name="artist" id="artist-dropdown" on:input={filterByArtist}>
-	<option value="select-artist">-Select Artist-</option>
-	{#each allArtists as artist}
-		<option value={artist}>{artist}</option>
-	{/each}
-</select>
+<div class="flex flex-row mt-2">
+	<div class="ml-4">
+		<select name="artist" id="artist-dropdown" on:input={filterByArtist}>
+			<option value="select-artist">-Select Artist-</option>
+			{#each allArtists as artist}
+				<option value={artist}>{artist}</option>
+			{/each}
+		</select>
+	</div>
+</div>
 
 {#if loading}
-  <p>Loading...</p>
+	<p>Loading...</p>
 {/if}
 
-<table class="border-black border-2">
-	<colgroup>
-		<col class="w-1/2" />
-		<col class="w-20" />
-		<col />
-	</colgroup>
-	<tr class="border-black border-2">
-		<th class="border-black border-2">&nbsp;</th>
-		<th class="border-black border-2">Length</th>
-		<th class="border-black border-2">Audio</th>
-	</tr>
-	{#each musics as music (music.id)}
-		<tr>
-			<td colspan="3"
-				><h2 class="text-lg">
-					{music.title} - {music.artist}
-				</h2></td
-			>
+<div class="sm:px-4 mt-4">
+	<table class="border-black border-2 w-full">
+		<colgroup>
+			<col />
+			<col />
+			<col class="w-40" />
+			<col class="w-20" />
+			<col />
+		</colgroup>
+		<tr class="border-black border-2">
+			<th class="border-black border-2">Song</th>
+			<th class="border-black border-2">Artist</th>
+			<th class="border-black border-y-2">Type</th>
+			<th class="border-black border-y-2">Length</th>
+			<th class="border-black border-y-2">Audio</th>
 		</tr>
-
-		{#each music.parts as part, index ((music.id, part.id))}
-			<tr class="border-black" class:border-b-2={index === music.parts.length - 1}>
-				<td>{part.typ} {part.extra}</td>
-				<td>{part.length()}s</td>
-				<td><audio controls preload="none" src="/{part.filename}" /></td>
+		{#each musics as music (music.id)}
+			<tr>
+				<td rowspan={music.parts.length + 1} class="border-black border-r-2 text-center"
+					><h2 class="py-2 px-4 text-lg">
+						{music.title}
+					</h2></td
+				>
+				<td rowspan={music.parts.length + 1} class="border-black border-r-2 text-center"
+					><h2 class="py-2 px-4 text-lg">
+						{music.artist}
+					</h2></td
+				>
 			</tr>
+
+			{#each music.parts as part, index ((music.id, part.id))}
+				<tr class="border-black" class:border-b-2={index === music.parts.length - 1}>
+					<td class="border-black border-b-2 text-center">{part.typ} {part.extra}</td>
+					<td class="border-black border-b-2 text-center">{part.length()}s</td>
+					<td class="border-black border-b-2"
+						><audio controls preload="none" src="/{part.filename}" /></td
+					>
+				</tr>
+			{/each}
 		{/each}
-	{/each}
-</table>
+	</table>
+</div>
 
 <div />
