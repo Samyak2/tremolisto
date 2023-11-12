@@ -16,7 +16,7 @@
 
 	let loading = false;
 
-	$: {
+	function updateMusicParts() {
 		loading = true;
 		let lastMusic: Music | null = null;
 		const foundMusics: Music[] = [];
@@ -39,36 +39,44 @@
 		loading = false;
 	}
 
-	function filterByArtist(
-		e: Event & {
-			currentTarget: HTMLSelectElement;
-		}
-	) {
-		const artist = e.currentTarget.value;
+	let selectedArtist: string;
+	let selectedSorting: string;
+
+	function filterByArtist(initialParts: MusicPart[], artist: string) {
 		if (artist === 'select-artist') {
-			parts = getInitialParts();
+			parts = initialParts;
 		} else {
-			parts = allMusics
-				.filter((music) => music.artist === artist)
-				.map((music) => music.getParts())
-				.flat();
+			parts = initialParts.filter((part) => part.music.artist === artist);
 		}
+		return parts;
 	}
 
-	function sortBy(
-		e: Event & {
-			currentTarget: HTMLSelectElement;
-		}
-	) {
-		const sorting = e.currentTarget.value;
+	function sortBy(initialParts: MusicPart[], sorting: string) {
 		if (sorting === 'default') {
-			parts = getInitialParts();
+			parts = initialParts;
 		} else if (sorting === 'length') {
-			parts = allMusics
-				.map((music) => music.getParts())
-				.flat()
-				.sort((a, b) => b.length() - a.length());
+			parts = initialParts.sort((a, b) => b.length() - a.length());
 		}
+		return parts;
+	}
+
+	function updateFiltersSorting(selectedArtist: string, selectedSorting: string) {
+		console.log('selection changed', selectedArtist, selectedSorting);
+		if (selectedArtist === undefined) {
+			return;
+		}
+
+		const initialParts = getInitialParts();
+		let newParts = initialParts;
+
+		newParts = filterByArtist(newParts, selectedArtist);
+		sortBy(newParts, selectedSorting);
+
+		updateMusicParts();
+	}
+
+	$: {
+		updateFiltersSorting(selectedArtist, selectedSorting);
 	}
 
 	console.log(musics);
@@ -78,7 +86,7 @@
 
 <div class="flex flex-row mt-2">
 	<div class="ml-4">
-		<select class="p-1" name="artist" id="artist-dropdown" on:input={filterByArtist}>
+		<select class="p-1" name="artist" id="artist-dropdown" bind:value={selectedArtist}>
 			<option value="select-artist">-Select Artist-</option>
 			{#each allArtists as artist}
 				<option value={artist}>{artist}</option>
@@ -87,7 +95,7 @@
 	</div>
 
 	<div class="ml-4">
-		<select class="p-1" name="sorting" id="sorting-dropdown" on:input={sortBy}>
+		<select class="p-1" name="sorting" id="sorting-dropdown" bind:value={selectedSorting}>
 			<option value="default">No sorting</option>
 			<option value="length">Length</option>
 		</select>

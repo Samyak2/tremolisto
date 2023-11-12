@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import lodash from 'lodash';
 
 export interface OrigMusic {
 	title: string;
@@ -48,7 +48,7 @@ export class Music {
 	}
 
 	copy(): Music {
-		return cloneDeep(this);
+		return lodash.cloneDeep(this);
 	}
 }
 
