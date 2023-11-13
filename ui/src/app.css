@@ -17,8 +17,4 @@
 	--placeholder-color: theme('colors.primary.50');
 
 	--border: 1px solid theme('colors.primary.700');
-
-	:hover {
-		cursor: pointer;
-	}
 }

@@ -161,7 +161,7 @@
 						>
 						<br class="block md:hidden" />
 						<td data-th="" class="border-primary-700 md:border-b-2"
-							><audio controls preload="none" src="/{part.filename}" /></td
+							><audio class="w-full min-w-[300px]" controls preload="none" src="/{part.filename}" /></td
 						>
 					</tr>
 				{/each}
