@@ -175,8 +175,7 @@ Max width before this PARTICULAR table gets nasty
 This query will take effect for any screen smaller than 760px
 and also iPads specifically.
 */
-	@media only screen and (max-width: 768px),
-		(min-device-width: 768px) and (max-device-width: 1024px) {
+	@media (max-width: 768px) {
 		/* Force table to not be like tables anymore */
 		table,
 		thead,
@@ -195,33 +194,12 @@ and also iPads specifically.
 		}
 
 		tr {
-			/* border: 1px solid #ccc; */
 			text-align: center;
 		}
 
 		td {
-			/* Behave  like a "row" */
-			/* border: none; */
-			/* border-bottom: 1px solid #eee; */
-			/*
-			position: relative;
-			padding-left: 50%;
-      */
 			display: inline-flex;
 			align-items: center;
-		}
-
-		td:before {
-			/* Now like a table header */
-			/* position: absolute; */
-			/* Top/left values mimic padding */
-			/*
-			top: 6px;
-			left: 6px;
-			width: 45%;
-			padding-right: 10px;
-			white-space: nowrap;
-      */
 		}
 
 		td[data-th]:before {
