@@ -80,94 +80,102 @@
 	console.log(musics);
 </script>
 
-<h1 class="text-xl font-bold p-2">Guitar Music</h1>
+<div class="flex justify-center">
+	<div class="md:max-w-[80rem]">
+		<h1 class="text-xl font-bold p-2">Guitar Music</h1>
 
-<div class="flex flex-row mt-2 mr-4">
-	<div class="ml-4 w-64">
-		<Select
-			placeholder="Select artist"
-			items={allArtists.map((artist) => {
-				return { value: artist, label: artist };
-			})}
-			class="bg-primary-900 text-primary-50"
-			bind:justValue={selectedArtist}
-		/>
-	</div>
+		<div class="flex flex-row flex-wrap mt-2 mr-4">
+			<div class="ml-4 w-64 mb-2">
+				<Select
+					placeholder="Select artist"
+					items={allArtists.map((artist) => {
+						return { value: artist, label: artist };
+					})}
+					class="bg-primary-900 text-primary-50"
+					bind:justValue={selectedArtist}
+				/>
+			</div>
 
-	<div class="ml-4 w-64">
-		<Select
-			placeholder="No sorting"
-			items={[{ value: 'length', label: 'Length' }]}
-			class="bg-primary-900 text-primary-50"
-			bind:justValue={selectedSorting}
-		/>
-	</div>
-</div>
+			<div class="ml-4 w-64">
+				<Select
+					placeholder="No sorting"
+					items={[{ value: 'length', label: 'Length' }]}
+					class="bg-primary-900 text-primary-50"
+					bind:justValue={selectedSorting}
+				/>
+			</div>
+		</div>
 
-{#if loading}
-	<p>Loading...</p>
-{/if}
-
-<div class="sm:px-4 mt-4">
-	<table class="w-full">
-		<colgroup>
-			<col />
-			<col />
-			<col class="sm:w-40" />
-			<col class="sm:w-20" />
-			<col />
-		</colgroup>
-		<thead>
-			<tr>
-				<th class="border-primary-700 border-y-2">Song</th>
-				<th class="border-primary-700 border-y-2 border-r-2">Artist</th>
-				<th class="border-primary-700 border-y-2">Type</th>
-				<th class="border-primary-700 border-y-2">Length</th>
-				<th class="border-primary-700 border-y-2">Audio</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each musics as music (music.key)}
-				<tr>
-					<td data-th="" rowspan={music.numParts() + 1} class="border-primary-700 text-center"
-						><span class="py-2 pl-4 md:px-4 text-xl font-bold">
-							{music.title}
-						</span></td
-					>
-					<td
-						data-hyphen-before=""
-						data-th=""
-						rowspan={music.numParts() + 1}
-						class="border-primary-700 md:border-r-2 text-center"
-						><span class="py-2 pl-2 md:px-4 text-xl font-bold">
-							{music.artist}
-						</span></td
-					>
-				</tr>
-
-				{#each music.getParts() as part, index ((music.id, part.id))}
-					<tr
-						class="border-primary-700 pl-2 md:pl-0 mb-2 md:mb-0"
-						class:border-b-2={index === music.numParts() - 1}
-					>
-						<td data-th="" class="border-primary-700 md:border-b-2 text-center"
-							>{part.typ} {part.extra}</td
-						>
-						<td
-							data-hyphen-before=""
-							data-th=""
-							class="border-primary-700 md:border-b-2 text-center"
-							><span class="pl-1 md:pl-0">{part.lengthPretty()}</span></td
-						>
-						<br class="block md:hidden" />
-						<td data-th="" class="border-primary-700 md:border-b-2"
-							><audio class="w-full min-w-[300px]" controls preload="none" src="/{part.filename}" /></td
-						>
+		<div class="sm:px-4 mt-4">
+			<table class="w-full">
+				<colgroup>
+					<col />
+					<col />
+					<col class="sm:w-40" />
+					<col class="sm:w-20" />
+					<col />
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="border-primary-700 border-y-2">Song</th>
+						<th class="border-primary-700 border-y-2 border-r-2">Artist</th>
+						<th class="border-primary-700 border-y-2">Type</th>
+						<th class="border-primary-700 border-y-2">Length</th>
+						<th class="border-primary-700 border-y-2">Audio</th>
 					</tr>
-				{/each}
-			{/each}
-		</tbody>
-	</table>
+				</thead>
+				<tbody>
+					{#each musics as music (music.key)}
+						<tr>
+							<td
+								data-th=""
+								rowspan={music.numParts() + 1}
+								class="border-primary-700 text-center py-2 pl-4 md:px-4"
+								><span class="text-xl font-bold">
+									{music.title}
+								</span></td
+							>
+							<td
+								data-hyphen-before=""
+								data-th=""
+								rowspan={music.numParts() + 1}
+								class="border-primary-700 md:border-r-2 text-center"
+								><span class="py-2 pl-2 md:px-4 text-xl font-bold">
+									{music.artist}
+								</span></td
+							>
+						</tr>
+
+						{#each music.getParts() as part, index ((music.id, part.id))}
+							<tr
+								class="border-primary-700 mb-2 md:mb-0"
+								class:border-b-2={index === music.numParts() - 1}
+							>
+								<td data-th="" class="border-primary-700 md:border-b-2 text-center"
+									>{part.typ} {part.extra}</td
+								>
+								<td
+									data-hyphen-before=""
+									data-th=""
+									class="border-primary-700 md:border-b-2 text-center"
+									><span class="pl-1 md:pl-0">{part.lengthPretty()}</span></td
+								>
+								<br class="block md:hidden" />
+								<td data-th="" class="border-primary-700 md:border-b-2 w-full md:w-[50%]"
+									><audio
+										class="w-full min-w-[300px]"
+										controls
+										preload="none"
+										src="/{part.filename}"
+									/></td
+								>
+							</tr>
+						{/each}
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 <style>
