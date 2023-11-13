@@ -1,6 +1,7 @@
 <script lang="ts">
 	import origMusics from '../music.json';
 	import { Music, MusicPart } from '$lib/types';
+	import Select from 'svelte-select';
 
 	const allMusics: Music[] = origMusics.map((orig, index) => new Music(index, orig));
 	const allArtists: string[] = Array.from(new Set(allMusics.map((music) => music.artist))).sort(
@@ -39,11 +40,11 @@
 		loading = false;
 	}
 
-	let selectedArtist: string;
-	let selectedSorting: string;
+	let selectedArtist: string = '';
+	let selectedSorting: string = '';
 
 	function filterByArtist(initialParts: MusicPart[], artist: string) {
-		if (artist === 'select-artist') {
+		if (artist === '' || artist === null || artist === undefined) {
 			parts = initialParts;
 		} else {
 			parts = initialParts.filter((part) => part.music.artist === artist);
@@ -52,7 +53,7 @@
 	}
 
 	function sortBy(initialParts: MusicPart[], sorting: string) {
-		if (sorting === 'default') {
+		if (sorting === '' || sorting === null || sorting === undefined) {
 			parts = initialParts;
 		} else if (sorting === 'length') {
 			parts = initialParts.sort((a, b) => b.length() - a.length());
@@ -62,9 +63,6 @@
 
 	function updateFiltersSorting(selectedArtist: string, selectedSorting: string) {
 		console.log('selection changed', selectedArtist, selectedSorting);
-		if (selectedArtist === undefined) {
-			return;
-		}
 
 		const initialParts = getInitialParts();
 		let newParts = initialParts;
@@ -84,21 +82,25 @@
 
 <h1 class="text-xl font-bold p-2">Guitar Music</h1>
 
-<div class="flex flex-row mt-2">
-	<div class="ml-4">
-		<select class="p-1" name="artist" id="artist-dropdown" bind:value={selectedArtist}>
-			<option value="select-artist">-Select Artist-</option>
-			{#each allArtists as artist}
-				<option value={artist}>{artist}</option>
-			{/each}
-		</select>
+<div class="flex flex-row mt-2 mr-4">
+	<div class="ml-4 w-64">
+		<Select
+			placeholder="Select artist"
+			items={allArtists.map((artist) => {
+				return { value: artist, label: artist };
+			})}
+			class="bg-primary-900 text-primary-50"
+			bind:justValue={selectedArtist}
+		/>
 	</div>
 
-	<div class="ml-4">
-		<select class="p-1" name="sorting" id="sorting-dropdown" bind:value={selectedSorting}>
-			<option value="default">No sorting</option>
-			<option value="length">Length</option>
-		</select>
+	<div class="ml-4 w-64">
+		<Select
+			placeholder="No sorting"
+			items={[{ value: 'length', label: 'Length' }]}
+			class="bg-primary-900 text-primary-50"
+			bind:justValue={selectedSorting}
+		/>
 	</div>
 </div>
 

@@ -3,5 +3,22 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark; /* both supported */
+	color-scheme: dark; /* both supported */
+}
+
+/* svelte-select */
+.svelte-select {
+	--background: theme('colors.primary.900');
+	--list-background: theme('colors.primary.800');
+	--item-active-background: theme('colors.primary.900');
+	--item-hover-bg: theme('colors.primary.700');
+
+	--item-color: theme('colors.primary.50');
+	--placeholder-color: theme('colors.primary.50');
+
+	--border: 1px solid theme('colors.primary.700');
+
+	:hover {
+		cursor: pointer;
+	}
 }
