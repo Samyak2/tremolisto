@@ -107,7 +107,7 @@
 {/if}
 
 <div class="sm:px-4 mt-4">
-	<table class="border-black border-2 w-full">
+	<table class="w-full">
 		<colgroup>
 			<col />
 			<col />
@@ -115,21 +115,21 @@
 			<col class="w-20" />
 			<col />
 		</colgroup>
-		<tr class="border-black border-2">
-			<th class="border-black border-2">Song</th>
-			<th class="border-black border-2">Artist</th>
-			<th class="border-black border-y-2">Type</th>
-			<th class="border-black border-y-2">Length</th>
-			<th class="border-black border-y-2">Audio</th>
+		<tr>
+			<th class="border-primary-700 border-y-2">Song</th>
+			<th class="border-primary-700 border-y-2 border-r-2">Artist</th>
+			<th class="border-primary-700 border-y-2">Type</th>
+			<th class="border-primary-700 border-y-2">Length</th>
+			<th class="border-primary-700 border-y-2">Audio</th>
 		</tr>
 		{#each musics as music (music.key)}
 			<tr>
-				<td rowspan={music.numParts() + 1} class="border-black border-r-2 text-center"
+				<td rowspan={music.numParts() + 1} class="border-primary-700 text-center"
 					><h2 class="py-2 px-4 text-lg">
 						{music.title}
 					</h2></td
 				>
-				<td rowspan={music.numParts() + 1} class="border-black border-r-2 text-center"
+				<td rowspan={music.numParts() + 1} class="border-primary-700 border-r-2 text-center"
 					><h2 class="py-2 px-4 text-lg">
 						{music.artist}
 					</h2></td
@@ -137,10 +137,10 @@
 			</tr>
 
 			{#each music.getParts() as part, index ((music.id, part.id))}
-				<tr class="border-black" class:border-b-2={index === music.numParts() - 1}>
-					<td class="border-black border-b-2 text-center">{part.typ} {part.extra}</td>
-					<td class="border-black border-b-2 text-center">{part.lengthPretty()}</td>
-					<td class="border-black border-b-2"
+				<tr class="border-primary-700" class:border-b-2={index === music.numParts() - 1}>
+					<td class="border-primary-700 border-b-2 text-center">{part.typ} {part.extra}</td>
+					<td class="border-primary-700 border-b-2 text-center">{part.lengthPretty()}</td>
+					<td class="border-primary-700 border-b-2"
 						><audio controls preload="none" src="/{part.filename}" /></td
 					>
 				</tr>
@@ -148,5 +148,3 @@
 		{/each}
 	</table>
 </div>
-
-<div />
