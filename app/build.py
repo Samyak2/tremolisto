@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
+from typing import Optional
 
 from tqdm import tqdm
 
@@ -16,6 +17,11 @@ def _get_env(key: str):
         raise Exception(f"Required configuration {key} not found")
 
 
+def _check_file_size(path: Path) -> Optional[int]:
+    if os.path.isfile(path):
+        return os.path.getsize(path)
+
+
 def get_musics():
     with open(_get_env("MUSIC_LIST_FILE")) as f:
         contents = f.read()
@@ -27,8 +33,8 @@ def get_musics():
             filepath = Path(part.filename)
             path_in_static = f"musics/{filepath.name}"
             new_path = current_module_path / "static" / path_in_static
-            # print(filepath, new_path)
-            shutil.copy2(filepath, new_path)
+            if _check_file_size(filepath) != _check_file_size(new_path):
+                shutil.copy2(filepath, new_path)
             part.filename = path_in_static
 
     return musics
