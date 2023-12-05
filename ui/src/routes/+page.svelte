@@ -139,8 +139,8 @@
 								data-hyphen-before=""
 								data-th=""
 								rowspan={music.numParts() + 1}
-								class="border-primary-700 md:border-r-2 text-center py-2 pl-2 md:px-4"
-								><span class="text-xl font-bold">
+								class="border-primary-700 md:border-r-2 text-center py-2 md:pl-2 md:px-4"
+								><span class="text-xl font-bold pl-2 md:pl-0">
 									{music.artist}
 								</span></td
 							>
