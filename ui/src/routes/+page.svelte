@@ -140,6 +140,8 @@
 					items={[{ value: 'length', label: 'Length' }]}
 					class="bg-primary-900 text-primary-50"
 					bind:justValue={selectedSorting}
+          inputStyles="cursor: pointer;"
+          containerStyles="cursor: pointer;"
 				/>
 			</div>
 		</div>
