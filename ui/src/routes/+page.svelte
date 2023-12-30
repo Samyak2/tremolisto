@@ -84,6 +84,42 @@
 	<div class="md:max-w-[80rem]">
 		<h1 class="text-xl font-bold p-2">Guitar Music</h1>
 
+		<div class="text-primary-100 ml-4 max-w-[50rem]">
+			<details>
+				<summary class="cursor-pointer">faq</summary>
+
+				<div class="grid grid-cols-[1.2rem_1fr]">
+					<div class="text-primary-700">q:</div>
+					<div>what is it?</div>
+					<div class="text-primary-700">a:</div>
+					<div class="mb-2">
+						a list of songs with the parts of them that use guitar. mostly electric guitar solos,
+						but includes riffs, acoustic guitar and rhythm guitar too.
+					</div>
+
+					<div class="text-primary-700">q:</div>
+					<div>what do the "Type"s means?</div>
+					<div class="text-primary-700">a:</div>
+					<div>
+						<ul class="list-disc ml-4">
+							<li><span class="font-bold">solo:</span> a guitar solo, or a short riff</li>
+							<li>
+								<span class="font-bold">intro:</span> a guitar solo or a riff that's a part of the song's beginning
+							</li>
+							<li>
+								<span class="font-bold">outro:</span> a guitar solo or a riff that's a part of the song's ending
+							</li>
+							<li><span class="font-bold">background:</span> guitar that appears behind vocals</li>
+							<li>
+								<span class="font-bold">multo:</span> a word I made up to mean multiple guitars or a guitar accompanied
+								by other instruments
+							</li>
+						</ul>
+					</div>
+				</div>
+			</details>
+		</div>
+
 		<div class="flex flex-row flex-wrap mt-2 mr-4">
 			<div class="ml-4 w-64 mb-2">
 				<Select
