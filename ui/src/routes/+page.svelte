@@ -81,7 +81,7 @@
 </script>
 
 <div class="flex justify-center">
-	<div class="md:max-w-[80rem]">
+	<div class="md:w-[80rem]">
 		<h1 class="text-xl font-bold p-2">Guitar Music</h1>
 
 		<div class="text-primary-100 ml-4 max-w-[50rem]">
@@ -129,6 +129,8 @@
 					})}
 					class="bg-primary-900 text-primary-50"
 					bind:justValue={selectedArtist}
+          inputStyles="cursor: pointer;"
+          containerStyles="cursor: pointer;"
 				/>
 			</div>
 
