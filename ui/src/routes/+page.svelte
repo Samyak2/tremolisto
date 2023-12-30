@@ -131,6 +131,7 @@
 					bind:justValue={selectedArtist}
           inputStyles="cursor: pointer;"
           containerStyles="cursor: pointer;"
+          listAutoWidth={false}
 				/>
 			</div>
 
