@@ -41,7 +41,15 @@
 	}
 
 	let selectedArtist: string = '';
-	let selectedSorting: string = '';
+
+	type SortingType = `${string};${'desc' | 'asc'}`;
+	const sortingOptions: { value: SortingType; label: string }[] = [
+		{ value: 'input-order;desc', label: 'Newly added' },
+		{ value: 'input-order;asc', label: 'Oldest added' },
+		{ value: 'length;desc', label: 'Longest' },
+		{ value: 'length;asc', label: 'Shortest' }
+	];
+	let selectedSorting: SortingType | null = sortingOptions[0].value;
 
 	function filterByArtist(initialParts: MusicPart[], artist: string) {
 		if (artist === '' || artist === null || artist === undefined) {
@@ -52,16 +60,26 @@
 		return parts;
 	}
 
-	function sortBy(initialParts: MusicPart[], sorting: string) {
-		if (sorting === '' || sorting === null || sorting === undefined) {
-			parts = initialParts;
-		} else if (sorting === 'length') {
-			parts = initialParts.sort((a, b) => b.length() - a.length());
+	function sortBy(initialParts: MusicPart[], sortingStr: SortingType | null) {
+		const sorting = sortingStr?.split(';', 2);
+
+		if (sorting === null || sorting === undefined) {
+			parts = [...initialParts].reverse();
+		} else if (sorting[0] === 'input-order') {
+			if (sorting[1] === 'asc') {
+				parts = initialParts;
+			} else {
+				parts = [...initialParts].reverse();
+			}
+		} else if (sorting[0] === 'length') {
+			parts = initialParts.sort((a, b) =>
+				sorting[1] === 'desc' ? b.length() - a.length() : a.length() - b.length()
+			);
 		}
 		return parts;
 	}
 
-	function updateFiltersSorting(selectedArtist: string, selectedSorting: string) {
+	function updateFiltersSorting(selectedArtist: string, selectedSorting: SortingType | null) {
 		console.log('selection changed', selectedArtist, selectedSorting);
 
 		const initialParts = getInitialParts();
@@ -104,15 +122,17 @@
 						<ul class="list-disc ml-4">
 							<li><span class="font-bold">solo:</span> a guitar solo, or a short riff</li>
 							<li>
-								<span class="font-bold">intro:</span> a guitar solo or a riff that's a part of the song's beginning
+								<span class="font-bold">intro:</span> a guitar solo or a riff that's a part of the song's
+								beginning
 							</li>
 							<li>
-								<span class="font-bold">outro:</span> a guitar solo or a riff that's a part of the song's ending
+								<span class="font-bold">outro:</span> a guitar solo or a riff that's a part of the song's
+								ending
 							</li>
 							<li><span class="font-bold">background:</span> guitar that appears behind vocals</li>
 							<li>
-								<span class="font-bold">multo:</span> a word I made up to mean multiple guitars or a guitar accompanied
-								by other instruments
+								<span class="font-bold">multo:</span> a word I made up to mean multiple guitars or a
+								guitar accompanied by other instruments
 							</li>
 						</ul>
 					</div>
@@ -129,20 +149,21 @@
 					})}
 					class="bg-primary-900 text-primary-50"
 					bind:justValue={selectedArtist}
-          inputStyles="cursor: pointer;"
-          containerStyles="cursor: pointer;"
-          listAutoWidth={false}
+					inputStyles="cursor: pointer;"
+					containerStyles="cursor: pointer;"
+					listAutoWidth={false}
 				/>
 			</div>
 
 			<div class="ml-4 w-64">
 				<Select
 					placeholder="No sorting"
-					items={[{ value: 'length', label: 'Length' }]}
+					value={selectedSorting}
+					items={sortingOptions}
 					class="bg-primary-900 text-primary-50"
 					bind:justValue={selectedSorting}
-          inputStyles="cursor: pointer;"
-          containerStyles="cursor: pointer;"
+					inputStyles="cursor: pointer;"
+					containerStyles="cursor: pointer;"
 				/>
 			</div>
 		</div>
