@@ -60,16 +60,26 @@
 		return parts;
 	}
 
+	function inputOrderReverseSorter(a: MusicPart, b: MusicPart): number {
+		if (a.music.id === b.music.id) {
+			// correct order within a music: parts listed as they were obtained
+			return a.id - b.id;
+		} else {
+			// reverse order of music: show newly added first
+			return b.music.id - a.music.id;
+		}
+	}
+
 	function sortBy(initialParts: MusicPart[], sortingStr: SortingType | null) {
 		const sorting = sortingStr?.split(';', 2);
 
 		if (sorting === null || sorting === undefined) {
-			parts = [...initialParts].reverse();
+			parts = [...initialParts].sort(inputOrderReverseSorter);
 		} else if (sorting[0] === 'input-order') {
 			if (sorting[1] === 'asc') {
 				parts = initialParts;
 			} else {
-				parts = [...initialParts].reverse();
+				parts = [...initialParts].sort(inputOrderReverseSorter);
 			}
 		} else if (sorting[0] === 'length') {
 			parts = initialParts.sort((a, b) =>
