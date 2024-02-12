@@ -198,11 +198,11 @@
 				</thead>
 				<tbody>
 					{#each musics as music (music.key)}
-						<tr>
+						<tr class="px-2">
 							<td
 								data-th=""
 								rowspan={music.numParts() + 1}
-								class="border-primary-700 text-center py-2 pl-4 md:px-4"
+								class="border-primary-700 text-center py-2 md:px-4"
 								><span class="text-xl font-bold">
 									{music.title}
 								</span></td
