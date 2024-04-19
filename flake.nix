@@ -21,6 +21,7 @@
         buildInputs = with pkgs; [
           python312
           nodejs_21
+          netlify-cli
         ];
       in {
         devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
