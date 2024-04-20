@@ -1,5 +1,5 @@
 {
-  description = "Guitar music list";
+  description = "tremolisto: a collection of isolated guitar parts";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

@@ -110,7 +110,8 @@
 
 <div class="flex justify-center">
 	<div class="md:w-[80rem]">
-		<h1 class="text-xl font-bold p-2">Guitar Music</h1>
+		<h1 class="text-3xl font-bold p-2 ml-2">tremolisto</h1>
+		<h2 class="text-l p-2 ml-2">a collection of isolated guitar parts</h2>
 
 		<div class="text-primary-100 ml-4 max-w-[50rem]">
 			<details>
