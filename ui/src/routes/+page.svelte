@@ -36,7 +36,7 @@
 			foundMusics.push(lastMusic);
 		}
 		musics = foundMusics;
-		console.log('new musics', musics);
+		console.log(`got ${musics.length} songs after update`);
 		loading = false;
 	}
 
@@ -106,6 +106,7 @@
 	}
 
 	console.log(musics);
+  console.log(`got ${musics.length} songs`);
 </script>
 
 <div class="flex justify-center">
