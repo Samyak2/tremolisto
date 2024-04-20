@@ -106,7 +106,7 @@
 	}
 
 	console.log(musics);
-  console.log(`got ${musics.length} songs`);
+	console.log(`got ${musics.length} songs`);
 </script>
 
 <div class="flex justify-center">
