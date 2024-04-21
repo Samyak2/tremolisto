@@ -1,4 +1,4 @@
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 from pydantic import BaseModel, TypeAdapter
 from yt_dlp import YoutubeDL
