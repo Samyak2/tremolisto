@@ -4,6 +4,8 @@ Source code for the processing and the UI of https://tremolisto.samyak.me/
 
 Does not include the actual list.
 
+For more information, see the [introduction blog post](https://samyak.me/post/tremolisto/).
+
 ## Usage
 
 ### Requirements
