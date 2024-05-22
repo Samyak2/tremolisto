@@ -20,7 +20,7 @@
         ];
         buildInputs = with pkgs; [
           python312
-          nodejs_21
+          nodejs_22
           netlify-cli
         ];
       in {
