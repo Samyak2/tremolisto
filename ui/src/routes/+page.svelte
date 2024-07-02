@@ -15,10 +15,7 @@
 
 	let musics: Music[] = allMusics;
 
-	let loading = false;
-
 	function updateMusicParts() {
-		loading = true;
 		let lastMusic: Music | null = null;
 		const foundMusics: Music[] = [];
 		for (const part of parts) {
@@ -37,7 +34,6 @@
 		}
 		musics = foundMusics;
 		console.log(`got ${musics.length} songs after update`);
-		loading = false;
 	}
 
 	let selectedArtist: string = '';
