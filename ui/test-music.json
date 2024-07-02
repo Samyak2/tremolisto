@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Water on the Smoke",
+        "artist": "Shallow Pink",
+        "url": "https://music.youtube.com/watch?v=2l4xZuYeB7u",
+        "parts": [
+            {
+                "start": "0:00",
+                "end": "0:31",
+                "typ": "intro",
+                "extra": "",
+                "filename": "musics/song.mp3"
+            },
+            {
+                "start": "4:50",
+                "end": "4:55",
+                "typ": "solo",
+                "extra": "",
+                "filename": "musics/song.mp3"
+            }
+        ]
+    }
+]

@@ -1,0 +1,33 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: ./ui
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: ./ui/package-lock.json
+    - run: npm ci
+    - run: |
+        cp test-music.json src/music.json
+        mkdir -p static/musics/
+        cp test-sound.mp3 static/musics/song.mp3
+    - run: npm run build
+    - run: npm lint
