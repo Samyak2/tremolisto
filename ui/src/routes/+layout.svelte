@@ -8,6 +8,6 @@
 
 <style>
 	:global(body) {
-    @apply bg-primary-900;
+		@apply bg-primary-900;
 	}
 </style>

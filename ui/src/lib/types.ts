@@ -80,7 +80,7 @@ export class MusicPart {
 	}
 
 	private timeToSeconds(time: string) {
-		let [mins, secs] = time.split(':');
+		const [mins, secs] = time.split(':');
 		return parseInt(mins) * 60 + parseInt(secs);
 	}
 

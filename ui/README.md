@@ -8,7 +8,6 @@ Built using svelte.
 npm install
 ```
 
-
 ```bash
 npm run dev
 ```
