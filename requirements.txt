@@ -392,9 +392,9 @@ python-dotenv==1.0.1 \
     --hash=sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca \
     --hash=sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a
     # via -r requirements.in
-requests==2.31.0 \
-    --hash=sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f \
-    --hash=sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1
+requests==2.32.3 \
+    --hash=sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760 \
+    --hash=sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6
     # via yt-dlp
 ruff==0.4.1 \
     --hash=sha256:0926cefb57fc5fced629603fbd1a23d458b25418681d96823992ba975f050c2b \
@@ -509,9 +509,9 @@ wheel==0.43.0 \
     --hash=sha256:465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85 \
     --hash=sha256:55c570405f142630c6b9f72fe09d9b67cf1477fcf543ae5b8dcb1f5b7377da81
     # via pip-tools
-yt-dlp==2024.4.9 \
-    --hash=sha256:7ee90572b4d313b582b99c89e4eccf779b57ff54edc331873c6b3fba77faa8b0 \
-    --hash=sha256:d6ff6798bd114cc48763564fcb2f296464ec1604f731e69b07a8814c89b170a2
+yt-dlp==2024.7.1 \
+    --hash=sha256:2479540f7a7bdea30258c7a46dfbd96e0904e706247db95c94bfa5a04239698a \
+    --hash=sha256:eb0019474ffde6979378c07555fa01173cf55bde90b172a0181b5716793aaef2
     # via -r requirements.in
 
 # WARNING: The following packages were not pinned, but pip requires them to be
