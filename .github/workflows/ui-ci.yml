@@ -30,4 +30,4 @@ jobs:
         mkdir -p static/musics/
         cp test-sound.mp3 static/musics/song.mp3
     - run: npm run build
-    - run: npm lint
+    - run: npm run lint
