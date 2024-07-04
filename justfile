@@ -1,7 +1,10 @@
 setup:
+    just setup-python
+    just npm-i
+
+setup-python:
     python -m pip install pip-tools~=7.4.1
     just sync
-    just npm-i
 
 comp-sync:
     just compile
@@ -25,3 +28,8 @@ build:
 
 deploy:
     netlify deploy --prod
+
+lint-python:
+    ruff check
+    black --check .
+    isort . --check
