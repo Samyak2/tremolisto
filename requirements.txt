@@ -426,9 +426,9 @@ ruff==0.5.6 \
     --hash=sha256:e6a584c1de6f8591c2570e171cc7ce482bb983d49c70ddf014393cd39e9dfaed \
     --hash=sha256:f908148c93c02873210a52cad75a6eda856b2cbb72250370ce3afef6fb99b1ed
     # via -r requirements.in
-tqdm==4.66.4 \
-    --hash=sha256:b75ca56b413b030bc3f00af51fd2c1a1a5eac6a0c1cca83cbb37a5c52abce644 \
-    --hash=sha256:e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb
+tqdm==4.66.5 \
+    --hash=sha256:90279a3770753eafc9194a0364852159802111925aa30eb3f9d85b0e805ac7cd \
+    --hash=sha256:e1020aef2e5096702d8a025ac7d16b1577279c9d63f8375b63083e9a5f0fcbad
     # via -r requirements.in
 typing-extensions==4.12.2 \
     --hash=sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d \
