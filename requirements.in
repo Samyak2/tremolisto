@@ -4,6 +4,6 @@ ruff
 pip-tools
 yt-dlp==2024.12.23
 pydub
-pydantic~=2.9.2
+pydantic~=2.10.5
 python-dotenv~=1.0.1
 tqdm~=4.67.1
