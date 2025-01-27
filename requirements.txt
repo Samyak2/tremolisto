@@ -222,9 +222,9 @@ wheel==0.43.0 \
     --hash=sha256:465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85 \
     --hash=sha256:55c570405f142630c6b9f72fe09d9b67cf1477fcf543ae5b8dcb1f5b7377da81
     # via pip-tools
-yt-dlp==2024.12.23 \
-    --hash=sha256:2fc08a5221a0379628ac4e7324c6c69a95b9fdfa7a7ca3187444b3b7451e38be \
-    --hash=sha256:ac0e72b5a9017ba104b4258546201a7cedc38e8bd20727e0c63b77c829b425e9
+yt-dlp==2025.1.26 \
+    --hash=sha256:1c9738266921ad43c568ad01ac3362fb7c7af549276fbec92bd72f140da16240 \
+    --hash=sha256:3e76bd896b9f96601021ca192ca0fbdd195e3c3dcc28302a3a34c9bc4979da7b
     # via -r requirements.in
 
 # WARNING: The following packages were not pinned, but pip requires them to be
