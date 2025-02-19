@@ -2,7 +2,7 @@ isort
 black
 ruff
 pip-tools
-yt-dlp==2024.12.23
+yt-dlp==2025.2.19
 pydub
 pydantic~=2.10.5
 python-dotenv~=1.0.1
