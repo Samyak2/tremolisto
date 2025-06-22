@@ -18,6 +18,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         cache: pip
-    - uses: extractions/setup-just@v2
+    - uses: extractions/setup-just@v3
     - run: just setup-python
     - run: just lint-python
