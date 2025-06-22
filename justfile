@@ -10,7 +10,7 @@ npm-i:
 
 update-deps:
     uv sync --upgrade
-    cd ui && npm update
+    cd ui && npm update && npm install
 
 build:
     python -m app.build
