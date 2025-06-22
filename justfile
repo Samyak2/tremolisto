@@ -19,5 +19,5 @@ deploy:
     netlify deploy --prod
 
 lint-python:
-    ruff check
-    ruff format --check
+    uv run ruff check
+    uv run ruff format --check
