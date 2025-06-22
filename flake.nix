@@ -18,13 +18,22 @@
         nativeBuildInputs = with pkgs; [
           just
         ];
+        python = pkgs.python313;
         buildInputs = with pkgs; [
-          python312
+          python
+          uv
           nodejs_22
           netlify-cli
         ];
       in {
-        devShells.default = pkgs.mkShell {inherit nativeBuildInputs buildInputs;};
+        devShells.default = pkgs.mkShell {
+          inherit nativeBuildInputs buildInputs;
+
+          shellHook = ''
+            export UV_PYTHON_PREFERENCE="only-system";
+            export UV_PYTHON=${python}
+          '';
+        };
       }
     );
 }

@@ -1,0 +1,19 @@
+[project]
+name = "tremolisto"
+version = "0.1.0"
+description = "a collection of isolated guitar parts"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "audioop-lts>=0.2.1 ; python_full_version >= '3.13'",
+    "pydantic~=2.11",
+    "pydub~=0.25",
+    "python-dotenv~=1.1",
+    "tqdm~=4.67",
+    "yt-dlp~=2025.6",
+]
+
+classifiers = ["Private :: Do Not Upload"]
+
+[dependency-groups]
+dev = ["ruff>=0.12.0"]

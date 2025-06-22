@@ -40,9 +40,10 @@ class KeyValueCache(Generic[V]):
         self._cache[key] = value
 
         self._bkp_file_path.touch()
-        with open(self._cache_file_path) as f_orig, open(
-            self._bkp_file_path, "a"
-        ) as f_bkp:
+        with (
+            open(self._cache_file_path) as f_orig,
+            open(self._bkp_file_path, "a") as f_bkp,
+        ):
             f_bkp.write("\n")
             f_bkp.write(f_orig.read())
 
@@ -54,7 +55,7 @@ class KeyValueCache(Generic[V]):
 
 
 def cached(
-    func: Callable[Concatenate[InputType, ParamType], RetType]
+    func: Callable[Concatenate[InputType, ParamType], RetType],
 ) -> Callable[Concatenate[InputType, ParamType], RetType]:
     annots = inspect.get_annotations(func, eval_str=True)
     ret_type = annots["return"]
