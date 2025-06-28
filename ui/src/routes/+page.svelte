@@ -230,7 +230,6 @@
 									class="border-[var(--color-primary-700)] md:border-b-2 text-center"
 									><span class="pl-1 md:pl-0">{part.lengthPretty()}</span></td
 								>
-								<br class="block md:hidden" />
 								<td
 									data-th=""
 									class="border-[var(--color-primary-700)] md:border-b-2 w-full md:w-[50%]"
@@ -239,7 +238,7 @@
 										controls
 										preload="none"
 										src="/{part.filename}"
-									/></td
+									></audio></td
 								>
 							</tr>
 						{/each}
