@@ -106,26 +106,26 @@
 </script>
 
 <div class="flex justify-center">
-	<div class="md:w-[80rem]">
+	<div class="md:w-7xl">
 		<h1 class="text-3xl font-bold p-2 ml-2">tremolisto</h1>
 		<h2 class="text-l p-2 ml-2">a collection of isolated guitar parts</h2>
 
-		<div class="text-primary-100 ml-4 max-w-[50rem]">
+		<div class="text-[var(--color-primary-100)] ml-4 max-w-200">
 			<details>
 				<summary class="cursor-pointer">faq</summary>
 
 				<div class="grid grid-cols-[1.2rem_1fr]">
-					<div class="text-primary-700">q:</div>
+					<div class="text-[var(--color-primary-700)]">q:</div>
 					<div>what is it?</div>
-					<div class="text-primary-700">a:</div>
+					<div class="text-[var(--color-primary-700)]">a:</div>
 					<div class="mb-2">
 						a list of songs with the parts of them that use guitar. mostly electric guitar solos,
 						but includes riffs, acoustic guitar and rhythm guitar too.
 					</div>
 
-					<div class="text-primary-700">q:</div>
+					<div class="text-[var(--color-primary-700)]">q:</div>
 					<div>what do the "Type"s means?</div>
-					<div class="text-primary-700">a:</div>
+					<div class="text-[var(--color-primary-700)]">a:</div>
 					<div>
 						<ul class="list-disc ml-4">
 							<li><span class="font-bold">solo:</span> a guitar solo, or a short riff</li>
@@ -155,7 +155,7 @@
 					items={allArtists.map((artist) => {
 						return { value: artist, label: artist };
 					})}
-					class="bg-primary-900 text-primary-50"
+					class="bg-[var(--color-primary-900)] text-[var(--color-primary-50)]"
 					bind:justValue={selectedArtist}
 					inputStyles="cursor: pointer;"
 					containerStyles="cursor: pointer;"
@@ -168,7 +168,7 @@
 					placeholder="No sorting"
 					value={selectedSorting}
 					items={sortingOptions}
-					class="bg-primary-900 text-primary-50"
+					class="bg-[var(--color-primary-900)] text-[var(--color-primary-50)]"
 					bind:justValue={selectedSorting}
 					inputStyles="cursor: pointer;"
 					containerStyles="cursor: pointer;"
@@ -187,11 +187,11 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th class="border-primary-700 border-y-2">Song</th>
-						<th class="border-primary-700 border-y-2 border-r-2">Artist</th>
-						<th class="border-primary-700 border-y-2">Type</th>
-						<th class="border-primary-700 border-y-2">Length</th>
-						<th class="border-primary-700 border-y-2">Audio</th>
+						<th class="border-[var(--color-primary-700)] border-y-2">Song</th>
+						<th class="border-[var(--color-primary-700)] border-y-2 border-r-2">Artist</th>
+						<th class="border-[var(--color-primary-700)] border-y-2">Type</th>
+						<th class="border-[var(--color-primary-700)] border-y-2">Length</th>
+						<th class="border-[var(--color-primary-700)] border-y-2">Audio</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -200,7 +200,7 @@
 							<td
 								data-th=""
 								rowspan={music.numParts() + 1}
-								class="border-primary-700 text-center py-2 md:px-4"
+								class="border-[var(--color-primary-700)] text-center py-2 md:px-4"
 								><span class="text-xl font-bold">
 									{music.title}
 								</span></td
@@ -209,7 +209,7 @@
 								data-hyphen-before=""
 								data-th=""
 								rowspan={music.numParts() + 1}
-								class="border-primary-700 md:border-r-2 text-center py-2 md:pl-2 md:px-4"
+								class="border-[var(--color-primary-700)] md:border-r-2 text-center py-2 md:pl-2 md:px-4"
 								><span class="text-xl font-bold pl-2 md:pl-0">
 									{music.artist}
 								</span></td
@@ -218,20 +218,20 @@
 
 						{#each music.getParts() as part, index ((music.id, part.id))}
 							<tr
-								class="border-primary-700 mb-2 md:mb-0"
+								class="border-[var(--color-primary-700)] mb-2 md:mb-0"
 								class:border-b-2={index === music.numParts() - 1}
 							>
-								<td data-th="" class="border-primary-700 md:border-b-2 text-center"
+								<td data-th="" class="border-[var(--color-primary-700)] md:border-b-2 text-center"
 									>{part.typ} {part.extra}</td
 								>
 								<td
 									data-hyphen-before=""
 									data-th=""
-									class="border-primary-700 md:border-b-2 text-center"
+									class="border-[var(--color-primary-700)] md:border-b-2 text-center"
 									><span class="pl-1 md:pl-0">{part.lengthPretty()}</span></td
 								>
 								<br class="block md:hidden" />
-								<td data-th="" class="border-primary-700 md:border-b-2 w-full md:w-[50%]"
+								<td data-th="" class="border-[var(--color-primary-700)] md:border-b-2 w-full md:w-[50%]"
 									><audio
 										class="w-full min-w-[300px]"
 										controls
