@@ -231,7 +231,9 @@
 									><span class="pl-1 md:pl-0">{part.lengthPretty()}</span></td
 								>
 								<br class="block md:hidden" />
-								<td data-th="" class="border-[var(--color-primary-700)] md:border-b-2 w-full md:w-[50%]"
+								<td
+									data-th=""
+									class="border-[var(--color-primary-700)] md:border-b-2 w-full md:w-[50%]"
 									><audio
 										class="w-full min-w-[300px]"
 										controls

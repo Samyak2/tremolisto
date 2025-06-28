@@ -10,7 +10,6 @@ import * as svelteParser from 'svelte-eslint-parser';
 export default tseslint.config(
 	eslint.configs.recommended,
 	tseslint.configs.recommended,
-	eslintConfigPrettier,
 	...eslintPluginSvelte.configs['flat/recommended'],
 	{
 		files: ['**/*.svelte'],
@@ -30,6 +29,7 @@ export default tseslint.config(
 			}
 		}
 	},
+	eslintConfigPrettier,
 	{
 		// Note: there should be no other properties in this object
 		ignores: ['build/*', '.svelte-kit/*', 'node_modules/*']
