@@ -45,7 +45,7 @@ Link: https://music.youtube.com/watch?v=qqqqqqqqqqq
 
 Create `.env` file with the following:
 ```env
-MUSIC_LIST_FILE="/path/to/music-list.md
+MUSIC_LIST_FILE="/path/to/music-list.md"
 ```
 
 ### Build

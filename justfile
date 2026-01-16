@@ -9,8 +9,9 @@ npm-i:
     cd ui && npm i
 
 update-deps:
+    nix flake update
     uv sync --upgrade
-    cd ui && npm update && npm install
+    cd ui && npm update && npm audit fix
 
 build:
     python -m app.build
