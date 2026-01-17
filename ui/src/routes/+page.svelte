@@ -45,7 +45,8 @@
 		{ value: 'length;desc', label: 'Longest' },
 		{ value: 'length;asc', label: 'Shortest' }
 	];
-	let selectedSorting: SortingType | null = sortingOptions[0].value;
+	let selectedSortingOption = sortingOptions[0];
+	$: selectedSorting = selectedSortingOption?.value;
 
 	function filterByArtist(initialParts: MusicPart[], artist: string) {
 		if (artist === '' || artist === null || artist === undefined) {
@@ -166,12 +167,12 @@
 			<div class="ml-4 w-64">
 				<Select
 					placeholder="No sorting"
-					value={selectedSorting}
 					items={sortingOptions}
 					class="bg-[var(--color-primary-900)] text-[var(--color-primary-50)]"
-					bind:justValue={selectedSorting}
+					bind:value={selectedSortingOption}
 					inputStyles="cursor: pointer;"
 					containerStyles="cursor: pointer;"
+					clearable={false}
 				/>
 			</div>
 		</div>
