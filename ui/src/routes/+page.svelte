@@ -140,8 +140,8 @@
 							</li>
 							<li><span class="font-bold">background:</span> guitar that appears behind vocals</li>
 							<li>
-								<span class="font-bold">multo:</span> a word I made up to mean multiple guitars or a
-								guitar accompanied by other instruments
+								<span class="font-bold">multo:</span> a word I made up to mean multiple guitars or a guitar
+								accompanied by other instruments
 							</li>
 						</ul>
 					</div>
