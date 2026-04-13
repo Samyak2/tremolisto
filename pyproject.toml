@@ -5,7 +5,7 @@ description = "a collection of isolated guitar parts"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "audioop-lts>=0.2.1",
+    "audioop-lts>=0.2.2",
     "pydantic~=2.11",
     "pydub~=0.25",
     "python-dotenv~=1.1",
