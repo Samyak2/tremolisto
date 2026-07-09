@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "audioop-lts>=0.2.1",
-    "pydantic~=2.11",
+    "pydantic~=2.13",
     "pydub~=0.25",
     "python-dotenv~=1.1",
     "tqdm~=4.67",
