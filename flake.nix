@@ -24,6 +24,7 @@
           uv
           nodejs_24
           netlify-cli
+          ffmpeg
         ];
       in {
         devShells.default = pkgs.mkShell {
