@@ -22,7 +22,7 @@
         buildInputs = with pkgs; [
           python
           uv
-          nodejs_22
+          nodejs_24
           netlify-cli
         ];
       in {
