@@ -157,7 +157,8 @@
 						return { value: artist, label: artist };
 					})}
 					class="bg-[var(--color-primary-900)] text-[var(--color-primary-50)]"
-					bind:justValue={selectedArtist}
+					valueMode="id"
+					bind:value={selectedArtist}
 					inputStyles="cursor: pointer;"
 					containerStyles="cursor: pointer;"
 					listAutoWidth={false}
